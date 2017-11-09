@@ -5,11 +5,11 @@ from django.http import HttpResponse
 def index(request):
     context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
 
-    return render(request, 'index.html', context=context_dict)
+    return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
     response = HttpResponse()
     response.write("<h1> About </h1>")
     response.write("<p> This is about page </p>")
-    response.write("<a href='/rango/'> Back </a>")
+    response.write("<a href='/rango/'> Home </a>")
     return response
