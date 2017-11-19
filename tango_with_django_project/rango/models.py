@@ -6,6 +6,10 @@ class Category(models.Model):
     likes = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
 
+    def save(self, *args, **kwargs):
+       if(self.views < 0): self.views = 0
+       super(Category, self).save(*args, **kwargs) # Call the real save() method
+
     def __str__(self):
         return self.name
 
@@ -16,6 +20,10 @@ class Page(models.Model):
     views = models.IntegerField(default=0)
     date = models.DateField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+       if(self.views < 0): self.views = 0
+       super(Page, self).save(*args, **kwargs) # Call the real save() method
+    
     def __str__(self):
         return self.title
 

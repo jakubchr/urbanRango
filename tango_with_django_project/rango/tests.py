@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.staticfiles import finders
+from django.utils.text import slugify
 
 # Thanks to Enzo Roiz https://github.com/enzoroiz who made these tests during an internship with us
 
@@ -187,12 +188,11 @@ class Chapter6ViewTests(TestCase):
     # does the category model have a slug field?
 
 
-    # test the slug field works..
     def test_does_slug_field_work(self):
-        from rango.models import Category
-        cat = Category(name='how do i create a slug in django')
+        from .models import Category
+        cat = Category(name=slugify('how do i create a slug in django'))
         cat.save()
-        self.assertEqual(cat.slug,'how-do-i-create-a-slug-in-django')
+        self.assertEqual(cat.name,'how-do-i-create-a-slug-in-django')
 
     # test category view does the page exist?
 
@@ -236,3 +236,14 @@ class Chapter7ViewTests(TestCase):
 
 
     # test if the add_page.html template exists.
+
+class CategoryMethodTests(TestCase):
+    def test_ensure_views_are_positive(self):
+        from .models import Category
+        """
+        ensure views are positive should return True for all categories that have positive or zero
+        number of views
+        """
+        cat = Category(name = 'test', views = -1, likes = 0)
+        cat.save()
+        self.assertEqual((cat.views >= 0), True)
