@@ -45,7 +45,7 @@ class AboutPageTests(TestCase):
         # Check if in the about page is there - and contains the specified message
         # Exercise from Chapter 4
         response = self.client.get(reverse('about'))
-        self.assertIn(b'This tutorial has been put together by', response.content)
+        self.assertIn(b'This page is brought to you by:', response.content)
         
     def test_about_using_template(self):
         # Check the template used to render index page
@@ -96,7 +96,7 @@ class Chapter4ViewTests(TestCase):
     def test_index_contains_hello_message(self):
         # Check if there is the message 'hello world!'
         response = self.client.get(reverse('index'))
-        self.assertIn('Rango says', response.content)
+        self.assertIn(b'Hey there!', response.content)
 
     def test_about_using_template(self):
         # Check the template used to render index page
@@ -108,7 +108,7 @@ class Chapter4ViewTests(TestCase):
     def test_about_contains_create_message(self):
         # Check if in the about page contains the message from the exercise
         response = self.client.get(reverse('about'))
-        self.assertIn('This tutorial has been put together by', response.content)
+        self.assertIn(b'This page is brought to you by:', response.content)
 
 
 class Chapter5ViewTests(TestCase):
@@ -151,16 +151,21 @@ class Chapter5ViewTests(TestCase):
         response = self.client.get(reverse('index'))
 
         #Check title used correctly
-        self.assertIn('<title>', response.content)
-        self.assertIn('</title>', response.content)
+        self.assertIn(b'<title>', response.content)
+        self.assertIn(b'</title>', response.content)
 
     # Need to add tests to:
     # check admin interface - is it configured and set up
 
     def test_admin_interface_page_view(self):
-        from admin import PageAdmin
+        from .admin import PageAdmin
         self.assertIn('category', PageAdmin.list_display)
         self.assertIn('url', PageAdmin.list_display)
+
+    def test_admnin_interface_category_view(self):
+        from .admin import CategoryAdmin
+        self.assertIn('likes', CategoryAdmin.list_display)
+        self.assertIn('views', CategoryAdmin.list_display)
 
 
 class Chapter6ViewTests(TestCase):
