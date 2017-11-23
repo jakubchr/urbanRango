@@ -2,6 +2,15 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.staticfiles import finders
 from django.utils.text import slugify
+from rango.models import Page,Category
+
+def add_cat(name, views, likes):
+        category = Category.objects.get_or_create(name = name)[0]
+        category.views = views
+        category.likes = likes
+        category.save()
+        return category
+
 
 # Thanks to Enzo Roiz https://github.com/enzoroiz who made these tests during an internship with us
 
@@ -78,7 +87,8 @@ class ModelTests(TestCase):
             cat = Category.objects.get(name=name)
         except Category.DoesNotExist:    
             cat = None
-        return cat
+        finally:
+            return cat
         
     def test_python_cat_added(self):
         cat = self.get_category('Python')  
@@ -92,6 +102,22 @@ class ModelTests(TestCase):
         cat = self.get_category('Python')
         self.assertEquals(cat.likes, 64)
         
+    def get_page(self, title):
+        from rango.models import Page
+        try:
+            page = Page.objects.get(title = title)
+        except Page.DoesNotExist:
+            page = None
+        finally:
+            return page
+
+    def test_Django_Rocks_page_added(self):
+        page = self.get_page('Django Rocks')
+        self.assertIsNotNone(page)
+    
+    def test_Django_Rocks_page_with_views(self):
+        page = self.get_page('Django Rocks')
+        self.assertEquals(page.views, 16)
 
 class Chapter4ViewTests(TestCase):
     def test_index_contains_hello_message(self):
@@ -111,6 +137,33 @@ class Chapter4ViewTests(TestCase):
         response = self.client.get(reverse('about'))
         self.assertIn(b'This page is brought to you by:', response.content)
 
+class IndexViewTests(TestCase):
+    def test_index_view_with_no_categories(self):
+        """
+        If not question exists, there should be shown appropriate message
+        """
+        response = self.client.get(reverse("index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There are no categories present.")
+        self.assertQuerysetEqual(response.context['categories'], [])
+
+    def test_index_view_with_categories(self):
+        """
+        Put some categories into database, then check whether it shows up on index page
+        """
+        from rango.models import Category
+        add_cat('cat1',1,1)
+        add_cat('cat2',1,1)
+        add_cat('cat3',1,1)
+        add_cat('cat4',1,1)
+
+
+        response = self.client.get(reverse("index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "cat1")
+
+        num_cats = len(response.context['categories'])
+        self.assertEqual(num_cats, 4)
 
 class Chapter5ViewTests(TestCase):
 
@@ -190,9 +243,9 @@ class Chapter6ViewTests(TestCase):
 
     def test_does_slug_field_work(self):
         from .models import Category
-        cat = Category(name=slugify('how do i create a slug in django'))
+        cat = Category(name='how do i create a slug in django')
         cat.save()
-        self.assertEqual(cat.name,'how-do-i-create-a-slug-in-django')
+        self.assertEqual(cat.slug,'how-do-i-create-a-slug-in-django')
 
     # test category view does the page exist?
 
