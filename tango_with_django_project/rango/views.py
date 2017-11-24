@@ -14,3 +14,6 @@ def about(request):
     context_dict = {'italicmessage': 'Kuba'}
 
     return render(request, 'rango/about.html', context=context_dict)
+
+def show_category(category_name_url):
+    
