@@ -1,6 +1,8 @@
+geoip/
 db.sqlite3
-# Byte-compiled / optimized / DLL files
 rango/__pycache__/
+__pycache__/
+# Byte-compiled / optimized / DLL files
 tango_with_django_project/__pycache__/
 __pycache__/
 *.py[cod]

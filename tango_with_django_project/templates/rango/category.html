@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <div>
+            {% if category %}
+                <h1>
+                    {{ category.name }}
+                </h1>
+                {% if pages %}
+                    <ul>
+                        {% for page in pages %}
+                        <li><a href="{{ page.url }}">{{ page.title }}</a> </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>No pages currently in this category</strong>
+                {% endif %}
+            {% else %}
+                <h1>The specified category does not exist</h1>
+            {% endif %}
+        </div>
+    </body>
+</html>
