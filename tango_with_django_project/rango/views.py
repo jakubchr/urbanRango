@@ -6,7 +6,8 @@ from rango.models import Category,Page
 # Create your views here.
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
+    most_viewed_category_list = Category.objects.order_by('-views')[:5]
+    context_dict = {'categories': category_list, 'viewed_categories': most_viewed_category_list}
 
     return render(request, 'rango/index.html', context=context_dict)
 

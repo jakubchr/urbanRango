@@ -15,9 +15,17 @@
             {% if categories %}
             <ul>
                 {% for category in categories %}
-                    <li>{{ category.name }}</li>
+                    <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
+                {% if viewed_categories %}
+                <strong>Most viewed categories:</strong>
+                <ul>
+                    {%for category in viewed_categories %}
+                        <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
+                    {%endfor %}
+                </ul>
+                {% endif %}
             {% else %}
                 <strong>There are no categories present.</strong>
             {% endif %}

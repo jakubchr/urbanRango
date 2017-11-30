@@ -237,10 +237,13 @@ class Chapter6ViewTests(TestCase):
 
 
     # are categories displayed on index page?
+    def test_categories_are_displayed_on_index_page(self):
+        response = self.client.get(reverse('index'))
+
+        self.assertIn(b'<li>Python</li>', response.content)
+        self.assertIn(b'<li>Perl</li>', response.content)
 
     # does the category model have a slug field?
-
-
     def test_does_slug_field_work(self):
         from .models import Category
         cat = Category(name='how do i create a slug in django')
@@ -248,7 +251,15 @@ class Chapter6ViewTests(TestCase):
         self.assertEqual(cat.slug,'how-do-i-create-a-slug-in-django')
 
     # test category view does the page exist?
+    def test_does_category_view_page_exist(self):
+        response = self.client.get(reverse('show_category', kwargs={'category_name_slug':'python'}))
 
+        self.assertEqual(response.status_code, 200)
+
+    def test_does_category_view_page_has_page_link(self):
+        response = self.client.get(reverse('show_category', kwargs={'category_name_slug':'python'}))
+
+        self.assertIn(b'<a href="http://docs.python.org/2/tutorial/">Official Python Tutorial</a>', response.content)
 
     # test whether you can navigate from index to a category page
 

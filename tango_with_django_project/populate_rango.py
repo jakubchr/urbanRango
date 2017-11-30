@@ -32,7 +32,7 @@ def populate():
             "Perl": {"pages": [], "views": 32, "likes": 16},
             "Php": {"pages": [], "views": 32, "likes": 16},
             "Prolog": {"pages": [], "views": 32, "likes": 16},
-            "Programming": {"pages": [], "views": 32, "likes": 16},
+            "Programming": {"pages": [], "views": 246, "likes": 16},
             }
     
     for cat, cat_data in cats.items():
