@@ -1,0 +1,37 @@
+h1 {
+    color: #5DADC7;
+    
+}
+
+h1, h2 {
+    font-family: 'Playfair Display';
+}
+
+body {
+    padding-left: 15px;
+}
+
+a {
+    font-family: 'Rokkitt'
+}
+
+#container {
+    width: 600px;
+    margin: auto;
+}
+
+#first {
+    width: 300px;
+    float: left;
+    height: 300px;
+}
+
+#second {
+    width: 300px;
+    float: right;
+    height: 300px;
+}
+
+#clear {
+    clear: both;
+}

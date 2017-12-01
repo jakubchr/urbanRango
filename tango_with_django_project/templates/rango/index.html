@@ -6,31 +6,40 @@
 
     <head>
         <title>Rango</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">        
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
     </head>
 
     <body>
         <h1>Rango:</h1>
         <div><p>Hey there!</p></div>
-        <div>
+        <div id="container">
             {% if categories %}
-            <ul>
-                {% for category in categories %}
-                    <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
-                {% endfor %}
-            </ul>
-                {% if viewed_categories %}
-                <strong>Most viewed categories:</strong>
+            <div id="first">
+                <h2>Most liked categories:</h2>
                 <ul>
-                    {%for category in viewed_categories %}
+                    {% for category in categories %}
                         <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
-                    {%endfor %}
+                    {% endfor %}
                 </ul>
+            </div>
+                {% if viewed_categories %}
+                <div id="second">
+                    <h2>Most viewed categories:</h2>
+                    <ul>
+                        {%for category in viewed_categories %}
+                            <li><a href="/rango/category/{{ category.slug }}">{{ category.name }}</a></li>
+                        {%endfor %}
+                    </ul>
+                </div>
                 {% endif %}
             {% else %}
                 <strong>There are no categories present.</strong>
             {% endif %}
         </div>
-
+        <div id="clear"></div>
         <div>
             <a href="/rango/about/">About</a> <br>
             <img src="{% static "images/rango.png" %}" alt="Picture of Rango" />
