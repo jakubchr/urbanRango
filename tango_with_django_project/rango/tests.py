@@ -240,8 +240,8 @@ class Chapter6ViewTests(TestCase):
     def test_categories_are_displayed_on_index_page(self):
         response = self.client.get(reverse('index'))
 
-        self.assertIn(b'<li>Python</li>', response.content)
-        self.assertIn(b'<li>Perl</li>', response.content)
+        self.assertIn(b'<li><a href="/rango/category/python">Python</a></li>', response.content)
+        self.assertIn(b'<li><a href="/rango/category/perl">Perl</a></li>', response.content)
 
     # does the category model have a slug field?
     def test_does_slug_field_work(self):

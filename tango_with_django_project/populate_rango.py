@@ -1,6 +1,9 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.settings')
 
+from django.utils import timezone
+import datetime
+
 import django
 django.setup()
 
@@ -25,18 +28,18 @@ def populate():
 		{ "title":"Bottle", "url":"http://bottlepy.org/docs/dev/", "views": 32},
 		{ "title":"Flask", "url":"http://flask.pocoo.org", "views": 16} ]
     
-    cats = {"Python": {"pages": python_pages, "views": 128, "likes": 64},
-			"Django": {"pages": django_pages, "views": 64, "likes": 32},
-        	"Other Frameworks": {"pages": other_pages, "views": 32, "likes": 16},
-            "Pascal": {"pages": [], "views": 32, "likes": 16},
-            "Perl": {"pages": [], "views": 32, "likes": 16},
-            "Php": {"pages": [], "views": 32, "likes": 16},
-            "Prolog": {"pages": [], "views": 32, "likes": 16},
-            "Programming": {"pages": [], "views": 246, "likes": 16},
+    cats = {"Python": {"pages": python_pages, "views": 128, "likes": 64, "date": datetime.datetime(2012, 3, 3, 1, 30)},
+			"Django": {"pages": django_pages, "views": 64, "likes": 32, "date": datetime.datetime(2015, 3, 3, 1, 30)},
+        	"Other Frameworks": {"pages": other_pages, "views": 32, "likes": 16, "date": datetime.datetime(2017, 3, 3, 1, 30)},
+            "Pascal": {"pages": [], "views": 32, "likes": 16, "date": datetime.datetime(2000, 3, 3, 1, 30)},
+            "Perl": {"pages": [], "views": 32, "likes": 16, "date": datetime.datetime(2014, 3, 3, 1, 30)},
+            "Php": {"pages": [], "views": 32, "likes": 16, "date": datetime.datetime(2012, 3, 3, 1, 30)},
+            "Prolog": {"pages": [], "views": 32, "likes": 16, "date": datetime.datetime(2012, 3, 3, 1, 30)},
+            "Programming": {"pages": [], "views": 246, "likes": 16, "date": datetime.datetime(1950, 3, 3, 1, 30)},
             }
     
     for cat, cat_data in cats.items():
-        c = add_cat(cat, cat_data["views"], cat_data["likes"])
+        c = add_cat(cat, cat_data["views"], cat_data["likes"], cat_data["date"])
         for p in cat_data["pages"]:
             add_page(c, p["title"], p["url"], p["views"])
     
@@ -53,10 +56,11 @@ def add_page(cat, title, url, views=0):
     p.save()
     return p
 
-def add_cat(name, views=0, likes=0):
+def add_cat(name, views=0, likes=0, date=timezone.now()):
     c = Category.objects.get_or_create(name=name)[0]
     c.views=views
     c.likes=likes
+    c.date=date
     c.save()
     return c
 

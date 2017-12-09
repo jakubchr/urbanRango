@@ -7,6 +7,7 @@ class Category(models.Model):
     likes = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+    date = models.DateField(null=True)
 
     def save(self, *args, **kwargs):
        if(self.views < 0): self.views = 0
