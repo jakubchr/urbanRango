@@ -5,11 +5,11 @@
 
     <head>
         <title>About</title>
-                <title>Rango</title>
-                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-                <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">        
-                <link rel="stylesheet" href="{% static 'css/index.css' %}">
+            <title>Rango</title>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+            <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">        
+            <link rel="stylesheet" href="{% static 'css/index.css' %}">
     </head>
 
     <body>
@@ -19,7 +19,7 @@
             <i>{{ italicmessage }}</i>
         </div>
         <div>
-            <a href="/rango/">Home</a> <br>
+            <a href="{% url 'rango:index' %}">Home</a> <br>
         </div>
     </body>
 </html>

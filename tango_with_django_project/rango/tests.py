@@ -208,9 +208,7 @@ class Chapter5ViewTests(TestCase):
         self.assertIn(b'<title>', response.content)
         self.assertIn(b'</title>', response.content)
 
-    # Need to add tests to:
     # check admin interface - is it configured and set up
-
     def test_admin_interface_page_view(self):
         from .admin import PageAdmin
         self.assertIn('category', PageAdmin.list_display)
@@ -277,23 +275,41 @@ class Chapter7ViewTests(TestCase):
         try:
             from forms import PageForm
             from forms import CategoryForm
-
+            from rango import views
         except ImportError:
             print('The module forms does not exist')
         except NameError:
             print('The class PageForm does not exist or is not correct')
         except:
             print('Something else went wrong :-(')
+        
 
-    pass
     # test is there a PageForm in rango.forms
+    def test_does_PageFormClass_exists(self):
+        try:
+            test = forms.PageForm()
+        except NameError as e:
+            pass
 
     # test is there a CategoryForm in rango.forms
+    def test_does_CategoryFormClass_exists(self):
+        try:
+            test = forms.CategoryForm()
+        except NameError as e:
+            pass
+    
+    # test is there an addpage page?
+    def test_does_addPage_page_exists(self):
+        response = self.client.get(reverse('add_page'))
 
-    # test is there an add page page?
+        self.assertIn(b'<h1>Add Page</h1>', response.content)       
 
-    # test is there an category page?
+    # test is there an addcategory page?   
+    def test_does_addCategory_page_exists(self):
+        response = self.client.get(reverse('add_category'))
 
+        self.assertIn(b'<h1>Add Category</h1>', response.content)
+    
 
     # test if index contains link to add category page
     #<a href="/rango/add_category/">Add a New Category</a><br />
