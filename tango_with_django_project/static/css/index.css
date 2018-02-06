@@ -9,6 +9,7 @@ h1, h2 {
 
 body {
     padding-left: 15px;
+    background: rgba(94, 93, 61, 0.678)
 }
 
 a {
@@ -16,7 +17,8 @@ a {
 }
 
 #container {
-    width: 600px;
+    background: rgb(255, 255, 255);
+    max-width: 960px;
     margin: auto;
 }
 
@@ -34,4 +36,10 @@ a {
 
 #clear {
     clear: both;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
 }

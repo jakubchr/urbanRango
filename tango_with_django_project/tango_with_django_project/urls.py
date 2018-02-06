@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^$', views.index, name='index'),
     url(r'^rango/', include('rango.urls')), #handle any request incoming to /rango by the rango application
+    url(r'^xmlvalidator/', include('xmlvalidator.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
