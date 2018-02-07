@@ -1,24 +1,11 @@
-<!DOCTYPE html>
+{% extends "xmlvalidator/base.html" %}
 
-{% load staticfiles %}
-
-<html>
-
-    <head>
-        <title>Rango</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">        
-        <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    </head>
-
-    <body>
-        {% block content %}
-            <form method="POST" enctype="multipart/form-data" class="center">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Validate</button>
-            </form>
-        {% endblock %}
-    </body>
-</html>
+{% block content %}
+    <p class="lead">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Validate</button>
+    </form>
+    </p>
+{% endblock %}

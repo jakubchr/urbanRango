@@ -1,0 +1,82 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+<!-- ============================================================--> 
+<element name="MD_MetadaneMaterialZasobu" type="metadaneMaterialZasobuType"/> <complexType name="metadaneMaterialZasobuType">
+<sequence>
+<element name="identyfikatorEwidencyjny" type="string"/>
+<element name="dataWpisaniaDoEwidencji" type="date"/>
+<element name="dataPozyskaniaInformacji" type="string"/>
+<element name="identyfikatorZgloszeniaPrac" type="string" minOccurs="0"/> <element name="nazwaMaterialuZasobu">
+<simpleType>
+<restriction base="string">
+<enumeration value="operat techniczny"/>
+<enumeration value="mapa topograficzna"/>
+<enumeration value="mapa ogólnogeograficzna"/>
+<enumeration value="mapa ewidencyjna"/>
+<enumeration value="mapa zasadnicza"/>
+<enumeration value="kartograficzne opracowanie tematyczne"/>
+<enumeration value="kartograficzne opracowanie specjalne"/>
+<enumeration value="zobrazowanie lotnicze lub satelitarne"/>
+ <enumeration value="ortofotomapa"/>
+ <enumeration value="numeryczny model terenu"/>
+ <enumeration value="kopia bazy danych pozyskana z innej części zasobu"/>
+ <enumeration value="kopia materiału pozyskana z innej części zasobu"/>
+ <enumeration value="inny materiał zasobu"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="polozenieObszaru" type="string" maxOccurs="unbounded"/>
+ <element name="sposobPozyskania" minOccurs="0">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="działania własne organu"/>
+ <enumeration value="współdziałanie podmiotów publicznych"/>
+ <enumeration value="darowizna"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="postac" maxOccurs="unbounded">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="postać elektroniczna"/>
+ <enumeration value="postać nieelektroniczna"/>
+ <enumeration value="postać mieszana"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="rodzajNosnika" minOccurs="0">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="papier"/>
+ <enumeration value="folia"/>
+ <enumeration value="plansza aluminiowa"/>
+ <enumeration value="kalka techniczna"/>
+ <enumeration value="inny"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="tworca" type="string"/>
+ <element name="dostep">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="dostępne bez żadnych ograniczeń"/>
+ <enumeration value="dostępne z ograniczeniami"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="przyczynyOgraniczen" type="string" minOccurs="0" maxOccurs="unbounded"/>
+ <element name="kategoriaArchiwalna" type="string"/>
+ <element name="kodJezykaNaturalnego" type="string" minOccurs="0"/>
+ <element name="opis" type="string" minOccurs="0"/>
+ <element name="godloLubNazwaMapy" type="string" minOccurs="0"/>
+ <element name="skalaMapy" type="string" minOccurs="0"/>
+ <element name="ukladOdniesienia" type="string" minOccurs="0"/> 
+ <element name="dataDruku" type="date" minOccurs="0"/>
+ <element name="nakladDruku" type="long" minOccurs="0"/>
+ <element name="identyfikator" type="string" minOccurs="0"/>
+ <element name="sygnatura" type="string" minOccurs="0"/>
+ <element name="dataDokumentuWylaczajacego" type="date" minOccurs="0"/>
+ <element name="dataWylaczenia" type="date" minOccurs="0"/>
+ <element name="dataPrzekazania" type="date" minOccurs="0"/>
+ </sequence>
+ </complexType>
+</schema> 

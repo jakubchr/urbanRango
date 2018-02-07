@@ -1,0 +1,69 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified" version="1.0">
+ <!-- ============================================================-->
+ <element name="MD_MetadaneMaterialZasobu" type="metadaneMaterialZasobuType"/>
+ <complexType name="metadaneMaterialZasobuType">
+ <sequence>
+ <element name="numerIdentyfikacyjny" type="string"/>
+ <element name="dataUtworzenia" type="string"/>
+ <element name="nazwa">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="szkic polowy/zbiór szkiców polowych"/> 
+ <enumeration value="wykaz współrzędnych/zbiór wykazów współrzędnych"/>
+ <enumeration value="protokół/zbiór protokołów"/>
+ <enumeration value="opis topograficzny/zbiór opisów topograficznych"/>
+ <enumeration value="sprawozdanie techniczne"/>
+ <enumeration value="mapa"/>
+ <enumeration value="plik danych EGIB"/>
+ <enumeration value="plik danych GESUT"/>
+ <enumeration value="plik danych K-GESUT"/>
+ <enumeration value="plik danych BDOT500"/>
+ <enumeration value="plik danych PRPOG"/>
+ <enumeration value="plik danych BDSOG"/>
+ <enumeration value="plik danych BDOT10k"/>
+ <enumeration value="plik danych Z-BDOT10k"/>
+ <enumeration value="plik danych BDOO"/>
+ <enumeration value="plik danych BDZLIS"/>
+ <enumeration value="plik danych BDNMT"/>
+ <enumeration value="plik danych BDORTO"/>
+ <enumeration value="plik danych PRG"/>
+ <enumeration value="plik danych PRNG"/>
+ <enumeration value="inny"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="format" type="string" maxOccurs="unbounded"/>
+ <element name="typ">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="oryginał"/>
+ <enumeration value="kopia"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="tworca" type="string" maxOccurs="unbounded"/>
+ <element name="dostep">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="dostępne bez żadnych ograniczeń"/>
+ <enumeration value="dostępne z ograniczeniami"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="przyczynyOgraniczen" type="string" minOccurs="0" maxOccurs="unbounded"/>
+ <element name="podstawowyTyp">
+ <simpleType>
+ <restriction base="string">
+ <enumeration value="tekst"/>
+ <enumeration value="obraz"/>
+ </restriction>
+ </simpleType>
+ </element>
+ <element name="kategoriaArchiwalna" type="string"/>
+ <element name="kodJezykaNaturalnego" type="string" minOccurs="0"/>
+ <element name="opis" type="string" minOccurs="0"/>
+ </sequence>
+ </complexType>
+</schema> 
