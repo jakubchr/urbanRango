@@ -9,9 +9,11 @@ def model_xml_upload(request):
             for filename, f in request.FILES.items():
                 xml = XML("\n".join(f.read().decode("utf-8").split("\n")[1:]), "12_1_2")
                 result = xml.xml_errors
+                message = ''
                 if len(result) == 0:
-                    result = "No errors in XML found!"
-                context_dict = {'filename': filename, 'content': result}
+                    result = False
+                    message = "Nie znaleziono błędów w pliku XML"
+                context_dict = {'filename': filename, 'result': result, 'message': message}
             return render(request, 'xmlvalidator/validation_result.html', context=context_dict)
     else:
         form = XMLForm()
