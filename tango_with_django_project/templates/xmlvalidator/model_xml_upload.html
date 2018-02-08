@@ -2,11 +2,13 @@
 
 {% block content %}
     <p class="lead">
-    Plik xml powinien zawierać deklarację kodowania na początku: <code><xmp> <?xml version="1.0" encoding="UTF-8"?> </xmp></code>   
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Waliduj</button>
-    </form>
+    Plik xml powinien zawierać deklarację kodowania na początku: <code><xmp> <?xml version="1.0" encoding="UTF-8"?> </xmp></code>
+    <div class="form-group row">   
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary mb-2" type="submit">Waliduj</button>
+        </form>
+    </div>
     </p>
 {% endblock %}
