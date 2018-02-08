@@ -4,4 +4,4 @@ from xmlvalidator.models import XMLDocument
 class XMLForm(forms.ModelForm):
     class Meta:
         model = XMLDocument
-        fields = ('description', 'xml', )
+        fields = ('description', 'xml', 'decree_point')

@@ -1,12 +1,15 @@
 {% extends "xmlvalidator/base.html" %}
 
 {% block content %}
-    <h1>Błędy:</h1>
+    <h1>Wyniki walidacji</h1>
+    <h3>Plik:</h3>
+    <p>{{filename}}</p>
+    <h3>Błędy:</h3>
     {% if result %}
         {% for line in result %}
             <p>{{line}}</p>\
         {% endfor %}
-        {% elif message %}
-            <p>{{message}}</p>
+    {% elif message %}
+        <p>{{message}}</p>
     {% endif %}
 {% endblock %}
