@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-{% load staticfiles %}
+{% extends "xmlvalidator/base.html" %}
 
-<html>
-
-    <head>
-        <title>About</title>
-            <title>Rango</title>
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-            <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">        
-            <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    </head>
-
-    <body>
+{% block content %}
         <h1>About:</h1>
         <div>
             This page is brought to you by:<br>
@@ -21,5 +9,4 @@
         <div>
             <a href="{% url 'rango:index' %}">Home</a> <br>
         </div>
-    </body>
-</html>
+{%endblock%}

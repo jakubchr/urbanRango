@@ -1,18 +1,8 @@
-<!DOCTYPE html>
+{% extends "rango/base.html" %}
 
 {% load staticfiles %}
 
-<html>
-
-    <head>
-        <title>Rango</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">        
-        <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    </head>
-
-    <body>
+{%block content%}
         <h1>Rango:</h1>
         <div><p>Hey there!</p></div>
         <div id="container">
@@ -49,5 +39,4 @@
             <a href="{% url 'rango:about' %}">About</a> <br>
             <img src="{% static "images/rango.png" %}" alt="Picture of Rango" />
         </div>
-    </body>
-</html>
+{%endblock%}
