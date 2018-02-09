@@ -11,5 +11,7 @@
         {% endfor %}
     {% elif message %}
         <p>{{message}}</p>
+    {% elif error %}
+        <p>{{ error }}</p>
     {% endif %}
 {% endblock %}
