@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 {% load staticfiles %}
+{% load rango_template_tags %}
+
 <html lang="en"><head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +14,7 @@
     
         <!-- Bootstrap core CSS -->
         <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
     
         <!-- Custom styles for this template -->
         <link href="{% static 'css/sticky-footer-navbar.css'%}" rel="stylesheet">
@@ -45,12 +48,22 @@
             </div>
           </nav>
         </header>
-    
+        <br>
         <!-- Begin page content -->
-        <main role="main" class="container">
-                {%block content%}
-                {%endblock%}
-        </main>
+        <div id="wrapper" class="toggled">
+          <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+              {% block sidebar_block %}
+                <h2>Categories</h2>
+                <li>{% get_category_list %}</li>
+              {% endblock %}
+            </ul>
+          </div>
+          <div id="wrapper">
+            {%block content%}
+            {%endblock%}
+          </div>
+        </div>
     
         <footer class="footer">
           <div class="container">

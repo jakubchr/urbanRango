@@ -22,7 +22,7 @@ from xmlvalidator import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^$', views.model_xml_upload, name='index'),
-    url(r'^rango/', include('rango.urls')), #handle any request incoming to /rango by the rango application
-    url(r'^xmlvalidator/', include('xmlvalidator.urls')),
+    url(r'^$', views.model_xml_upload, name='model_xml_upload'),
+    url(r'^rango/', include('rango.urls', namespace='rango')), #handle any request incoming to /rango by the rango application
+    url(r'^xmlvalidator/', include('xmlvalidator.urls', namespace='xmlvalidator'),),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

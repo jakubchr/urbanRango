@@ -26,25 +26,25 @@ class IndexPageTests(TestCase):
     def test_index_contains_hello_message(self):
         # Check if there is the message 'Hey there!'
         # Chapter 4
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('rango:index'))
         self.assertIn(b'Hey there!', response.content)
          
     def test_index_using_template(self):
         # Check the template used to render index page
         # Chapter 4
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('rango:index'))
         self.assertTemplateUsed(response, 'rango/index.html')
 
     def test_rango_picture_displayed(self):
         # Check if is there an image called 'rango.jpg' on the index page
         # Chapter 4
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('rango:index'))
         self.assertIn(b'img src="/static/images/rango.png', response.content)
     
     def test_index_has_title(self):
         # Check to make sure that the title tag has been used
         # And that the template contains the HTML from Chapter 4 
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('rango:index'))
         self.assertIn(b'<title>', response.content)
         self.assertIn(b'</title>', response.content)
 
@@ -54,13 +54,13 @@ class AboutPageTests(TestCase):
     def test_about_contains_create_message(self):
         # Check if in the about page is there - and contains the specified message
         # Exercise from Chapter 4
-        response = self.client.get(reverse('about'))
+        response = self.client.get(reverse('rango:about'))
         self.assertIn(b'This page is brought to you by:', response.content)
         
     def test_about_using_template(self):
         # Check the template used to render index page
         # Exercise from Chapter 4 
-        response = self.client.get(reverse('about'))
+        response = self.client.get(reverse('rango:about'))
 
         self.assertTemplateUsed(response, 'rango/about.html')
         
@@ -122,19 +122,19 @@ class ModelTests(TestCase):
 class Chapter4ViewTests(TestCase):
     def test_index_contains_hello_message(self):
         # Check if there is the message 'hello world!'
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('rango:index'))
         self.assertIn(b'Hey there!', response.content)
 
     def test_about_using_template(self):
         # Check the template used to render index page
         # Exercise from Chapter 4
-        response = self.client.get(reverse('about'))
+        response = self.client.get(reverse('rango:about'))
 
         self.assertTemplateUsed(response, 'rango/about.html')
 
     def test_about_contains_create_message(self):
         # Check if in the about page contains the message from the exercise
-        response = self.client.get(reverse('about'))
+        response = self.client.get(reverse('rango:about'))
         self.assertIn(b'This page is brought to you by:', response.content)
 
 class IndexViewTests(TestCase):
@@ -142,7 +142,7 @@ class IndexViewTests(TestCase):
         """
         If not question exists, there should be shown appropriate message
         """
-        response = self.client.get(reverse("index"))
+        response = self.client.get(reverse("rango:index"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no categories present.")
         self.assertQuerysetEqual(response.context['categories'], [])
@@ -158,7 +158,7 @@ class IndexViewTests(TestCase):
         add_cat('cat4',1,1)
 
 
-        response = self.client.get(reverse("index"))
+        response = self.client.get(reverse("rango:index"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "cat1")
 
@@ -202,7 +202,7 @@ class Chapter5ViewTests(TestCase):
         self.assertEquals(cat.likes, 64)
 
     def test_view_has_title(self):
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('rango:index'))
 
         #Check title used correctly
         self.assertIn(b'<title>', response.content)
@@ -236,7 +236,7 @@ class Chapter6ViewTests(TestCase):
 
     # are categories displayed on index page?
     def test_categories_are_displayed_on_index_page(self):
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('rango:index'))
 
         self.assertIn(b'<li><a href="/rango/category/python">Python</a></li>', response.content)
         self.assertIn(b'<li><a href="/rango/category/perl">Perl</a></li>', response.content)
@@ -250,12 +250,12 @@ class Chapter6ViewTests(TestCase):
 
     # test category view does the page exist?
     def test_does_category_view_page_exist(self):
-        response = self.client.get(reverse('show_category', kwargs={'category_name_slug':'python'}))
+        response = self.client.get(reverse('rango:show_category', kwargs={'category_name_slug':'python'}))
 
         self.assertEqual(response.status_code, 200)
 
     def test_does_category_view_page_has_page_link(self):
-        response = self.client.get(reverse('show_category', kwargs={'category_name_slug':'python'}))
+        response = self.client.get(reverse('rango:show_category', kwargs={'category_name_slug':'python'}))
 
         self.assertIn(b'<a href="http://docs.python.org/2/tutorial/">Official Python Tutorial</a>', response.content)
 
@@ -300,13 +300,13 @@ class Chapter7ViewTests(TestCase):
     
     # test is there an addpage page?
     def test_does_addPage_page_exists(self):
-        response = self.client.get(reverse('add_page'))
+        response = self.client.get(reverse('rango:add_page'))
 
         self.assertIn(b'<h1>Add Page</h1>', response.content)       
 
     # test is there an addcategory page?   
     def test_does_addCategory_page_exists(self):
-        response = self.client.get(reverse('add_category'))
+        response = self.client.get(reverse('rango:add_category'))
 
         self.assertIn(b'<h1>Add Category</h1>', response.content)
     
