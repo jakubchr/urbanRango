@@ -18,6 +18,12 @@
     top: 50px;
   }
   
+  #main-wrapper {
+    position: relative;
+    left: 10px;
+    top: 10px;
+  }
+
   #wrapper.toggled {
     padding-left: 250px;
   }
@@ -56,8 +62,8 @@
   /* Sidebar Styles */
   
   .sidebar-nav {
-    position: absolute;
-    top: 0;
+    position: relative;
+    top: 0px;
     width: 250px;
     margin: 0;
     padding: 0;
@@ -123,6 +129,11 @@
     }
   }
 
-  h2 {
+  .h2_white {
+    position: relative;
+    top: 10px;
+    left: 5px;
     color: white;
+    clear: both;
+    font-size: 1.2rem;
   }

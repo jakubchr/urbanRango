@@ -52,14 +52,20 @@
         <!-- Begin page content -->
         <div id="wrapper" class="toggled">
           <div id="sidebar-wrapper">
+            <h2 class="h2_white">Top Categories:</h2>
             <ul class="sidebar-nav">
-              {% block sidebar_block %}
-                <h2>Categories</h2>
-                <li>{% get_category_list %}</li>
+              {% block sidebar__top_block %}
+                {% get_top_category_list %}
               {% endblock %}
             </ul>
+            <h2 class="h2_white">Latest Categories:</h2>
+            <ul class="sidebar-nav">
+              {% block sidebar_latest_block %}
+                {% get_latest_category_list %}
+              {%endblock%}
+            </ul>
           </div>
-          <div id="wrapper">
+          <div id="main-wrapper">
             {%block content%}
             {%endblock%}
           </div>
@@ -67,7 +73,7 @@
     
         <footer class="footer">
           <div class="container">
-            <span class="text-muted">V-0.15 <b> Jakub Charyton </b></span>
+            <span class="text-muted">v0.15 <b> Jakub Charyton </b></span>
           </div>
         </footer>
       
