@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -9,6 +10,7 @@ class Category(models.Model):
     views = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     date = models.DateField(null=True)
+    user = models.ForeignKey(User)
 
     def save(self, *args, **kwargs):
        if(self.views < 0): self.views = 0
@@ -24,6 +26,7 @@ class Page(models.Model):
     url = models.URLField()
     views = models.IntegerField(default=0)
     date = models.DateField(auto_now=True)
+    user = models.ForeignKey(User)
 
     def save(self, *args, **kwargs):
        if(self.views < 0): self.views = 0

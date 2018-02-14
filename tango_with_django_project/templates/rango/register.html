@@ -1,24 +1,20 @@
 {% extends 'rango/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-    Register
-{% endblock %}
-
-{% block body_block %}
-    <h1>Register for rango</h1>
+{% block content %}
+    <h1>Register</h1>
     {% if registered %}
-        Rango says: <strong>thank you for registering!</strong>
+        <strong>Thank you for registering!</strong> <br>
         <a href="{% url 'rango:index' %}">Return to the homepage</a> <br>
     {% else %}
-        <strong>Registration</strong><br>
-        <form id="user_form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+        <form id="user_form" method="POST" action="{% url 'rango:register' %}" enctype="multipart/form-data">
             {% csrf_token %}
-            
-            {{user_form.as_p}}
-            {{profile_form.as_p}}
+            <div class="form-group">
+                {{user_form.as_p}}
+                {{profile_form.as_p}}
 
-            <button class="btn btn-primary mb-2" type="submit">Register</button>
+                <button class="btn btn-primary mb-2" type="submit">Register</button>
+            </div>
         </form>
     {% endif %}
 {% endblock %}

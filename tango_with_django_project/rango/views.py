@@ -1,8 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from rango.models import Category,Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+
+from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -35,6 +39,7 @@ def show_category(request, category_name_slug):
     
     return render(request, 'rango/category.html', context=context_dict)
 
+@login_required
 def add_category(request):
     form = CategoryForm()
 
@@ -42,13 +47,16 @@ def add_category(request):
         form = CategoryForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
             return index(request)
         else:
             print(form.errors)
     
     return render(request, 'rango/add_category.html', {'form': form})
 
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -63,6 +71,7 @@ def add_page(request, category_name_slug):
                 page = form.save(commit = False)
                 page.category = category
                 page.views = 0
+                page.user = request.user
                 page.save()
                 return show_category(request, category_name_slug)
         else:
@@ -104,3 +113,35 @@ def register(request):
         'profile_form': profile_form,
         'registered': registered
     })
+
+@login_required
+def logout_view(request):
+    try:
+        logout(request)
+    except Exception as error:
+        return HttpResponse("There was an error while logging out")
+    else:
+        return HttpResponseRedirect(reverse('rango:index'))
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('rango:index'))
+            else:
+                return HttpResponse("Your account is inactive")
+        else:
+            return HttpResponse("Invalid login details: {0}".format(username))
+        
+    else:
+        return render(request, 'rango/login.html', {})
+
+@login_required
+def restricted(request):
+    return HttpResponse("You're logged in so you can view this page")

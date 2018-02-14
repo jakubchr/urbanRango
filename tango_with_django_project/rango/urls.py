@@ -13,4 +13,12 @@ urlpatterns = [
     url(r'^(?P<category_name_slug>[\w\-]+)/add_page', views.add_page, name='add_page'),
     #ex: /rango/category/Python[param]
     url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.show_category, name='show_category'),
+    #ex: /rango/register
+    url(r'^register/$', views.register, name='register'),
+    
+    url(r'^logout/$', views.logout_view, name='logout'),
+    #ex: /rango/login
+    url(r'^login/$', views.user_login, name='login'),
+
+    url(r'^restricted/$', views.restricted, name='restricted'),
 ]

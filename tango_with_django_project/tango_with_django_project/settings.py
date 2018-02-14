@@ -144,3 +144,5 @@ MEDIA_ROOT = MEDIA_DIR
 
 CONTENT_TYPES = ['multipart', 'text']
 MAX_UPLOAD_SIZE = '2621440'
+
+LOGIN_URL = '/rango/login/'
