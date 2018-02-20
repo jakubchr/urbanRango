@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -7,6 +8,24 @@ from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
+
+#Helper functions
+def visitor_cookie_handler(request, response):
+    #get the number of visits to the site
+    visits = int(request.COOKIES.get('visits', '1'))
+
+    last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
+
+    if (datetime.now() - last_visit_time).days > 0:
+        visits = visits + 1
+        response.set_cookie('last_visit', str(datetime.now()))
+    else:
+        visits = 1
+        response.set_cookie('last_visit', last_visit_cookie)
+
+    response.set_cookie('visits', visits)
+
 
 # Create your views here.
 def index(request):
@@ -145,3 +164,4 @@ def user_login(request):
 @login_required
 def restricted(request):
     return HttpResponse("You're logged in so you can view this page")
+
