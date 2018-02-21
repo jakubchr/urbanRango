@@ -9,22 +9,27 @@ from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 
-#Helper functions
-def visitor_cookie_handler(request, response):
-    #get the number of visits to the site
-    visits = int(request.COOKIES.get('visits', '1'))
+def _get_server_side_cookie(request, cookie, default_val=None):
+    val = request.session.get(cookie)
+    if not val:
+        val = default_val
+    return val
 
-    last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
+#Helper functions
+def visitor_cookie_handler(request):
+    #get the number of visits to the site
+    visits = int(_get_server_side_cookie(request, 'visits', '1'))
+
+    last_visit_cookie = _get_server_side_cookie(request, 'last_visit', str(datetime.now()))
     last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
 
     if (datetime.now() - last_visit_time).days > 0:
         visits = visits + 1
-        response.set_cookie('last_visit', str(datetime.now()))
+        request.session['last_visit'] = str(datetime.now())
     else:
-        visits = 1
-        response.set_cookie('last_visit', last_visit_cookie)
+        request.session['last_visit'] = last_visit_cookie
 
-    response.set_cookie('visits', visits)
+    request.session['visits'] = visits
 
 
 # Create your views here.
@@ -32,7 +37,10 @@ def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     most_viewed_category_list = Category.objects.order_by('-views')[:5]
     context_dict = {'categories': category_list, 'viewed_categories': most_viewed_category_list}
-
+    
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+    
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):

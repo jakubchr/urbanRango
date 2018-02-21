@@ -15,6 +15,7 @@
                 {% else %}
                     <strong>No pages currently in this category</strong><br/>
                 {% endif %}
+                <p> Category was created {{ category.date }}</p>
                 <br>                 
                 <a href="{% url 'rango:add_page' category.slug %}" class="btn btn-primary">Add Page</a> <br/>
             {% else %}
